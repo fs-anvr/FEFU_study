@@ -1,18 +1,23 @@
 #include <iostream>
 #include <fstream>
-#include <ctime>
+#include <windows.h>
 #include <chrono>
 using namespace std;
 
-void bubble_sort (int* mass, int size)
+void bubble_sort (int* mass, int start, int size)
 {
-    for (int i = size; i > 1; i--)
+    bool flag = true;
+    for (int i = size; i > start && flag; i--)
     {
-        for (int j = 1; j < i; j++)
+        int count = 0;
+        for (int j = 1; j < i && flag; j++)
         {
             if (mass[j] < mass[j - 1])
                 swap (mass[j], mass[j-1]);
+            count++;
         }
+        if (!count)
+            flag = false;
     }
 }
 
@@ -90,6 +95,32 @@ void merge_sort (int* mass, int start, int end) {
     }
 }
 
+void MixedSort (int* mass,int start,  int end)
+{
+    if (end - start <= 100)
+    {
+        bubble_sort(mass, start + 1, end + 1);
+    }
+    else
+    {
+        int left = start, right = end;
+        if (left >= right) return;
+        int S = mass[(left + right) / 2];
+        while (left <= right)
+        {
+            while (mass[left] < S) left++;
+            while (mass[right] > S) right--;
+            if (left <= right)
+            {
+                swap(mass[left], mass[right]);
+                left++; right--;
+            }
+        }
+        quick_sort(mass, start, right);
+        quick_sort(mass, left, end);
+    }
+}
+
 int main() {
     ifstream in ("input.txt");
     ofstream out ("output.txt");
@@ -99,10 +130,11 @@ int main() {
     int* mass1 = new int [n];
     int* mass2 = new int [n];
     int* mass3 = new int [n];
+    int* mass4 = new int [n];
     for (int i = 0; i < n; i++)
     {
         in >> cur;
-        mass0[i] = mass1[i] = mass2[i] = mass3[i] = cur;
+        mass0[i] = mass1[i] = mass2[i] = mass3[i] = mass4[i] = cur;
     }
     /*for (int i = 0; i < n; i++)
     {
@@ -110,29 +142,40 @@ int main() {
     }
     out << "\n\n";*/
 
-    auto start1 = std::chrono::steady_clock::now();
-    bubble_sort (mass0, n);
-    auto end1 = std::chrono::steady_clock::now();
-    std::chrono::duration<double> elapsed_seconds1 = end1-start1;
-    std::cout << "elapsed time: " << elapsed_seconds1.count() << "s\n";
+    auto start1 = chrono::steady_clock::now();
+    Sleep (1);
+    bubble_sort (mass0, 1, n);
+    auto end1 = chrono::steady_clock::now();
+    chrono::duration<double> elapsed_seconds1 = end1-start1;
+    cout << "BubbleSort time: " << elapsed_seconds1.count()*1000 - 1 << "ms\n";
 
-    auto start2 = std::chrono::steady_clock::now();
+    auto start2 = chrono::steady_clock::now();
+    Sleep (1);
     insert_sort (mass1, n);
-    auto end2 = std::chrono::steady_clock::now();
-    std::chrono::duration<double> elapsed_seconds2 = end2-start2;
-    std::cout << "elapsed time: " << elapsed_seconds2.count() << "s\n";
+    auto end2 = chrono::steady_clock::now();
+    chrono::duration<double> elapsed_seconds2 = end2-start2;
+    cout << "InsertSort time: " << elapsed_seconds2.count()*1000 - 1 << "ms\n";
 
-    auto start3 = std::chrono::steady_clock::now();
+    auto start3 = chrono::high_resolution_clock::now();
+    Sleep (1);
     quick_sort (mass2, 0, n-1);
-    auto end3 = std::chrono::steady_clock::now();
-    std::chrono::duration<double> elapsed_seconds3 = end3-start3;
-    std::cout << "elapsed time: " << elapsed_seconds3.count() << "s\n";
+    auto end3 = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed_seconds3 = end3-start3;
+    cout << "QuickSort time: " << elapsed_seconds3.count()*1000 - 1 << "ms\n";
 
-    auto start4 = std::chrono::steady_clock::now();
+    auto start4 = chrono::high_resolution_clock::now();
+    Sleep (1);
     merge_sort(mass3, 0, n-1);
-    auto end4 = std::chrono::steady_clock::now();
-    std::chrono::duration<double> elapsed_seconds4 = end4-start4;
-    std::cout << "elapsed time: " << elapsed_seconds4.count() << "s\n";
+    auto end4 = chrono::high_resolution_clock::now();
+    chrono::duration<double> elapsed_seconds4 = end4-start4;
+    cout << "MergeSort time: " << elapsed_seconds4.count()*1000 - 1 << "ms\n";
+
+    auto start5 = chrono::steady_clock::now();
+    Sleep (1);
+    MixedSort(mass4, 0, n);
+    auto end5 = chrono::steady_clock::now();
+    chrono::duration<double> elapsed_seconds5 = end5-start5;
+    cout << "MixedSort time: " << elapsed_seconds5.count()*1000 - 1 << "ms\n";
 
     /*for (int i = 0; i < n; i++)
     {
