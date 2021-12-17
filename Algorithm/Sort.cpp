@@ -60,7 +60,6 @@ void merge_sort (int* mass, int start, int end) {
     if (end - start < 1) return;
     if (end - start == 1) {
         if (mass[start] > mass[start+1]) {
-            //inv ++;
             swap (mass[start], mass[start+1]);
         }
         return;
@@ -136,11 +135,6 @@ int main() {
         in >> cur;
         mass0[i] = mass1[i] = mass2[i] = mass3[i] = mass4[i] = cur;
     }
-    /*for (int i = 0; i < n; i++)
-    {
-        out << mass0[i] << " ";
-    }
-    out << "\n\n";*/
 
     auto start1 = chrono::steady_clock::now();
     Sleep (1);
@@ -177,27 +171,6 @@ int main() {
     chrono::duration<double> elapsed_seconds5 = end5-start5;
     cout << "MixedSort time: " << elapsed_seconds5.count()*1000 - 1 << "ms\n";
 
-    /*for (int i = 0; i < n; i++)
-    {
-        out << mass0[i] << " ";
-    }
-    out << "\n";
 
-    for (int i = 0; i < n; i++)
-    {
-        out << mass1[i] << " ";
-    }
-    out << "\n";
-
-    for (int i = 0; i < n; i++)
-    {
-        out << mass2[i] << " ";
-    }
-    out << "\n";
-
-    for (int i = 0; i < n; i++)
-    {
-        out << mass3[i] << " ";
-    }*/
     return 0;
 }
