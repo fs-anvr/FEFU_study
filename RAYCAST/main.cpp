@@ -22,7 +22,6 @@ public:
 	double UnitVectorLength = 1;
 };
 
-
 class Angle
 {
 public:
@@ -180,10 +179,6 @@ public:
 	}
 	Person() = default;
 
-	void move()
-	{
-		//move
-	}
 };
 
 
@@ -257,7 +252,6 @@ public:
 	double Projection(Vector3d other)
 	{
 		Vector3d norm = Normal;
-		//norm.multiply(-1);
 		double proj = norm.multiply_scalar(other) / norm.Length();
 		return proj;
 	}
@@ -268,7 +262,6 @@ class Sphere : public Object
 {
 public:
 	double R;
-	// Ax^2 + By^2 + Cz^2 = r^2
 
 	Sphere(double X, double Y, double Z, double r)
 	{
@@ -303,51 +296,6 @@ public:
 	double Projection(Vector3d other)
 	{
 		return 0;
-	}
-};
-
-
-
-
-static class Event
-{
-public:
-	static string send()
-	{
-		return "onUpdateScreen";
-	}
-	static void receive()
-	{
-		if (_kbhit())
-		{
-			switch (_getch())
-			{
-			case 13:
-				//Redraw(FirstPlayer, Map, Screen, Color);
-				break;
-			case 27:
-				//run = false;
-				break;
-			case 119: // W
-				//flag = 1;
-				//onClickButtonW(&FirstPlayer, Map, 2);
-				break;
-			case 115: // S
-				//flag = 1;
-				//onClickButtonS(&FirstPlayer, Map, 2);
-				break;
-			case 54:
-				//flag = 1;
-				//onClickButton4(&FirstPlayer);
-				break;
-			case 52:
-				//flag = 1;
-				//onClickButton6(&FirstPlayer);
-				break;
-			default:
-				break;
-			}
-		}
 	}
 };
 
@@ -471,7 +419,7 @@ int main()
 				break;
 			case 27:
 				run = false;
-					break;
+				break;
 			case 119: // W
 				flag = 1;
 				onClickButtonW(&FirstPlayer, Map, 2);
@@ -496,8 +444,5 @@ int main()
 			Redraw(FirstPlayer, Map, Screen, Color);
 
 	}
-
-	//int t = _getch();
-	//cout << t;
 	return 0;
 }
