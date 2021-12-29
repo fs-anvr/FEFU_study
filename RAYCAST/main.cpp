@@ -11,11 +11,6 @@ const short ScreenHeight = 40;
 const double PI = 3.14159265359;
 
 
-class Parameters
-{
-public:
-};
-
 class CoordinateSystem
 {
 public:
