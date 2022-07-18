@@ -28,7 +28,7 @@ public:
 
     T priorityElement()
     {
-        return (empty()) ? body[0] : body[1];
+        return empty() ? body[0] : body[1];
     }
 
     bool empty()
