@@ -3,11 +3,11 @@ import sys
 def main():
     dictionary = {}
     for line in sys.stdin:
-        current_words = (line.split())
+        current_words = line.split()
         for word in current_words:
-            try:
+            if word in dictionary:
                 dictionary[word] += 1
-            except KeyError:
+            else:
                 dictionary[word] = 1
     words = dictionary.keys()
     numbers = dictionary.values()

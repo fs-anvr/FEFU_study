@@ -1,14 +1,13 @@
+import collections
+
 def main():
     n = int(input())
-    lat_eng_dict = {}
+    lat_eng_dict = collections.defaultdict(list)
     for i in range(n):
         eng, lat = input().split(' - ')
         lat = (lat.split(', '))
         for l in lat:
-            try:
-                lat_eng_dict[l].append(eng)
-            except KeyError:
-                lat_eng_dict[l] = [eng]
+            lat_eng_dict[l].append(eng)
 
     print(len(lat_eng_dict.keys()))
     for lat in sorted(lat_eng_dict.keys(), key=lambda x: x):
